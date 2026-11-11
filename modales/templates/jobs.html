@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jobs</title>
+</head>
+<body style="font-family:Arial;padding:30px;background:#f4f6f9;">
+
+<h1>Available Jobs</h1>
+
+{% for message in get_flashed_messages() %}
+<p style="color:green;">{{ message }}</p>
+{% endfor %}
+
+<a href="{{ url_for('add_job') }}">+ Add New Job</a> |
+<a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+<br><br>
+
+<table border="1" cellpadding="12" cellspacing="0">
+<tr>
+    <th>ID</th>
+    <th>Job Title</th>
+    <th>Description</th>
+    <th>Required Skills</th>
+</tr>
+
+{% for job in jobs %}
+<tr>
+    <td>{{ job.id }}</td>
+    <td>{{ job.title }}</td>
+    <td>{{ job.description }}</td>
+    <td>{{ job.required_skills }}</td>
+</tr>
+{% else %}
+<tr>
+    <td colspan="4">No jobs available. Please add a job.</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

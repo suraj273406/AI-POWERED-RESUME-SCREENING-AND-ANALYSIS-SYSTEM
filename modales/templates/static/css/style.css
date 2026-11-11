@@ -1,0 +1,71 @@
+
+body {
+    background-color: #f4f6fa;
+    font-family: Arial, sans-serif;
+    color: #1e293b;
+}
+
+.navbar {
+    background-color: #172554 !important;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.dashboard-card {
+    background: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+}
+
+.dashboard-card h2 {
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+h2 {
+    font-weight: 700;
+    color: #172554;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.table {
+    background-color: white;
+    vertical-align: middle;
+}
+
+.form-control,
+.form-select {
+    padding: 10px;
+    border-radius: 7px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+}

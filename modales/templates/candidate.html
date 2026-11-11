@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Candidates</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 25px;
+        }
+
+        h1 {
+            color: #1e293b;
+        }
+
+        a {
+            color: #2563eb;
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 25px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+        }
+
+        select, button {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .update {
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+
+        .delete {
+            background: #dc2626;
+            color: white;
+            border: none;
+        }
+
+        .message {
+            color: green;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>All Candidates</h1>
+
+<a href="{{ url_for('dashboard') }}">Dashboard</a>
+|
+<a href="{{ url_for('upload') }}">Upload Resume</a>
+
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <p class="message">{{ message }}</p>
+    {% endfor %}
+{% endwith %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Job</th>
+            <th>Match Score</th>
+            <th>Status</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for candidate in candidates %}
+
+        <tr>
+            <td>{{ candidate.id }}</td>
+
+            <td>{{ candidate.candidate_name or 'Unknown' }}</td>
+
+            <td>{{ candidate.email or 'N/A' }}</td>
+
+            <td>{{ candidate.phone or 'N/A' }}</td>
+
+            <td>{{ candidate.job_title or 'N/A' }}</td>
+
+            <td>{{ candidate.match_score or 0 }}%</td>
+
+            <td>{{ candidate.status or 'Pending' }}</td>
+
+            <td>
+                <form method="POST"
+                      action="{{ url_for('update_status', candidate_id=candidate.id) }}">
+
+                    <select name="status" required>
+                        <option value="Pending"
+                            {% if candidate.status == 'Pending' %}selected{% endif %}>
+                            Pending
+                        </option>
+
+                        <option value="Selected"
+                            {% if candidate.status == 'Selected' %}selected{% endif %}>
+                            Selected
+                        </option>
+
+                        <option value="Rejected"
+                            {% if candidate.status == 'Rejected' %}selected{% endif %}>
+                            Rejected
+                        </option>
+                    </select>
+
+                    <button type="submit" class="update">
+                        Update
+                    </button>
+
+                </form>
+            </td>
+
+            <td>
+                <form method="POST"
+                      action="{{ url_for('delete_candidate', candidate_id=candidate.id) }}"
+                      onsubmit="return confirm('Delete this candidate?');">
+
+                    <button type="submit" class="delete">
+                        Delete
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+
+    {% else %}
+
+        <tr>
+            <td colspan="9">No candidates found.</td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+</table>
+
+</body>
+</html>
